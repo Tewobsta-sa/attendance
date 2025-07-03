@@ -80,3 +80,8 @@ Route::middleware(['auth:sanctum', 'role:admin,data_manager'])->post('/import-st
 
     return response()->json(['message' => 'Import successful']);
 });
+
+
+Route::get('/test-role', function () {
+    return 'Middleware is working';
+})->middleware('role:admin');

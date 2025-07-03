@@ -14,7 +14,7 @@ use Illuminate\Validation\Rules;
 class RegisteredUserController extends Controller
 {
     /**
-     * Handle an incoming registration request.
+     * Handle an incoming registration request for all roles.
      *
      * @throws \Illuminate\Validation\ValidationException
      */
@@ -26,8 +26,6 @@ class RegisteredUserController extends Controller
             User::ROLE_DATA_MANAGER,
             User::ROLE_RECORDER_YOUNG,
             User::ROLE_RECORDER_ELDER,
-            User::ROLE_STUDENT_YOUNG,
-            User::ROLE_STUDENT_ELDER,
         ];
 
         $request->validate([
@@ -37,6 +35,7 @@ class RegisteredUserController extends Controller
             'role' => ['required', 'string', 'in:' . implode(',', $availableRoles)],
         ]);
 
+        // Create user
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,

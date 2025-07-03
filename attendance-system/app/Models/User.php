@@ -64,16 +64,10 @@ class User extends Authenticatable
         return $this->role === 'attendance_recorder';
     }
 
-    public function isStudent() {
-        return $this->role === 'student';
-    }
-
     public const ROLE_ADMIN = 'admin';
     public const ROLE_SUPER_USER = 'super_user';
     public const ROLE_DATA_MANAGER = 'data_manager';
     public const ROLE_RECORDER_YOUNG = 'attendance_recorder_young';
     public const ROLE_RECORDER_ELDER = 'attendance_recorder_elder';
-    public const ROLE_STUDENT_YOUNG = 'student_young';
-    public const ROLE_STUDENT_ELDER = 'student_elder';
 
 }
