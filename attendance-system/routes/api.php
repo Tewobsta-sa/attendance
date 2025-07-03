@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\YoungStudentController;
 use App\Http\Controllers\ElderStudentController;
 use App\Http\Controllers\SchoolClassController;
@@ -13,9 +15,20 @@ use App\Exports\AttendanceExport;
 use App\Imports\YoungStudentImport;
 use App\Imports\ElderStudentImport;
 
+require __DIR__.'/auth.php';
+
 Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+    Route::post('/register', [RegisteredUserController::class, 'store']);
+});
+
+Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+    Route::apiResource('users', UserController::class);
+});
+
 
 Route::middleware(['auth:sanctum', 'role:admin'])->get('/admin-only', fn() => 'Admin area');
 
